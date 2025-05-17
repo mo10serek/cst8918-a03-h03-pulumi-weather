@@ -43,15 +43,12 @@ const registryCredentials = containerregistry
     }
   })
 
-export const acrServer = registry.loginServer
-export const acrUsername = registryCredentials.username
-
 // Define the container image for the service.
 const image = new dockerBuild.Image(`${prefixName}-image`, {
   tags: [pulumi.interpolate`${registry.loginServer}/${imageName}:${imageTag}`],
   context: { location: appPath },
   dockerfile: { location: `${appPath}/Dockerfile` },
-  target: 'production',
+  //target: 'production',
   platforms: ['linux/amd64', 'linux/arm64'],
   push: true,
   registries: [
